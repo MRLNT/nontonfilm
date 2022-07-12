@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "613682843256",
+    "project_id": "nonton-film-225f0",
+    "storage_bucket": "nonton-film-225f0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:613682843256:android:939e492f2d2a2db798278d",
+        "android_client_info": {
+          "package_name": "com.ssrngstd.nontonfilm"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "613682843256-oijqsb7u8kgpsr5o7pmii2bgptf6avcr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAKTRKNzAgpFAEAuid73AB5m1ce4GDcB5s"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "613682843256-oijqsb7u8kgpsr5o7pmii2bgptf6avcr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

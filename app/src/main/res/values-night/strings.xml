@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="lewati_perkenalan">Lewati Perkenalan</string>
+    <string name="lanjutkan">Lanjutkan</string>
+    <string name="now_playing">Now Playing</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="nama">Nama</string>
+    <string name="email">Email Address</string>
+    <string name="upload_nanti">Upload Nanti</string>
+    <string name="photo">Photo</string>
+    <string name="selamat_datang">Selamat Datang\nMarcel</string>
+    <string name="simpan_dan_lanjutkan">Simpan dan Lanjutkan</string>
+    <string name="coming_soon">Coming Soon</string>
+    <string name="judul_film">Avengers: Infinity War</string>
+    <string name="kategori_film">Action, Sci-fi, Kids</string>
+    <string name="storyboard">Storyboard</string>
+    <string name="pilih_bangku">Pilih Bangku</string>
+    <string name="beli_tiket">Beli Tiket</string>
+    <string name="checkout">Checkout</string>
+    <string name="bayar_sekarang">Bayar Sekarang</string>
+    <string name="batalkan">Batalkan</string>
+    <string name="when">When</string>
+    <string name="datetime">Date and Time</string>
+    <string name="cinema">Cinem</string>
+    <string name="seatc1">Seat No. C1</string>
+    <string name="seatc2">Seat No. C2</string>
+    <string name="totalbayar">Total Harus Dibayar</string>
+    <string name="items">Items</string>
+    <string name="ewallet">E-Wallet</string>
+    <string name="totalbalance">Total Balance</string>
+    <string name="simpan_data">Simpan Data</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="my_wallet">My Wallet</string>
+    <string name="my_history">My History</string>
+    <string name="todo">TODO</string>
+    <string name="desc_sign_one">Lebih mudah untuk mengetahui film yang sedang tampil</string>
+    <string name="masuk">MASUK</string>
+    <string name="daftar">DAFTAR</string>
+</resources>
