@@ -8,7 +8,6 @@ import android.widget.EditText
 import android.widget.Toast
 import com.google.firebase.database.*
 import com.ssrngstd.nontonfilm.R
-import com.ssrngstd.nontonfilm.sign.SignUpPhotoScreenActivity
 import com.ssrngstd.nontonfilm.sign.signin.User
 
 class SignUpActivity : AppCompatActivity() {
