@@ -24,7 +24,6 @@ class OnboardingOneActivity : AppCompatActivity() {
         if(preference.getValues("onboarding").equals("1")){
             finishAffinity()
             startActivity(Intent(this, SignInActivity::class.java))
-
         }
 
         btn_home.setOnClickListener(){
