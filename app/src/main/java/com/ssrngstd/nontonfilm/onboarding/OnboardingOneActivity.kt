@@ -35,7 +35,6 @@ class OnboardingOneActivity : AppCompatActivity() {
             preference.setValues("onboarding", "1")
             finishAffinity()
             startActivity(Intent(this, SignInActivity::class.java))
-            startA
 
         }
 
