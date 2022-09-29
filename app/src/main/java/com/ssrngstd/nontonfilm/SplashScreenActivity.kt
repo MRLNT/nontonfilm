@@ -5,19 +5,27 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import com.ssrngstd.nontonfilm.onboarding.OnboardingOneActivity
-import com.ssrngstd.nontonfilm.onboarding.OnboardingThreeActivity
 
+/*
+    ini adalah activity pertama yang akan dirun
+    tidak ada fitur spesial disini
+    hanya melakukan pending
+    beberapa detik saja.
 
-@Suppress("DEPRECATION")
+ */
+
 class SplashScreenActivity : AppCompatActivity() {
-    override fun onCreate(savedInstanceState: Bundle?){
+
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
 
-        Handler().postDelayed({
-            startActivity(Intent(this,OnboardingOneActivity::class.java))
+        var handler = Handler()
+        handler.postDelayed({
+            val intent = Intent(this@SplashScreenActivity,
+                OnboardingOneActivity::class.java)
+            startActivity(intent)
             finish()
-        }, 2000)
-
+        }, 5000)
     }
 }

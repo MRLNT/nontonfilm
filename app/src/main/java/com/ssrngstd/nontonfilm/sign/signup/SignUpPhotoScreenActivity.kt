@@ -1,44 +1,55 @@
 package com.ssrngstd.nontonfilm.sign.signup
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.ProgressDialog
+import android.app.ProgressDialog.show
 import android.content.Intent
 import android.graphics.Bitmap
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
+import com.ssrngstd.nontonfilm.home.HomeActivity
+import com.ssrngstd.nontonfilm.R
+import com.ssrngstd.nontonfilm.sign.signin.User
+import com.ssrngstd.nontonfilm.utils.Preferences
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.firebase.database.*
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
 import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
-import com.ssrngstd.nontonfilm.HomeActivity
-import com.ssrngstd.nontonfilm.R
-import com.ssrngstd.nontonfilm.utils.Preferences
-import kotlinx.android.synthetic.main.activity_sign_in.*
 import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.*
-import kotlinx.android.synthetic.main.activity_sign_up_photoscreen.btn_home
+import java.io.File
+import java.io.IOException
 import java.util.*
-import java.util.jar.Manifest
 
-class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
+class SignUpPhotoscreenActivity : AppCompatActivity(), PermissionListener {
 
     val REQUEST_IMAGE_CAPTURE = 1
     var statusAdd:Boolean = false
     lateinit var filePath: Uri
 
-    lateinit var storage : FirebaseStorage
-    lateinit var storageReferensi : StorageReference
+    lateinit var storage: FirebaseStorage
+    lateinit var storageReference: StorageReference
     lateinit var preferences: Preferences
+
+    lateinit var user : User
+    private lateinit var mFirebaseDatabase: DatabaseReference
+    private lateinit var mFirebaseInstance: FirebaseDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,100 +57,168 @@ class SignUpPhotoScreenActivity : AppCompatActivity(), PermissionListener {
 
         preferences = Preferences(this)
         storage = FirebaseStorage.getInstance()
-        storageReferensi = storage.getReference()
+        storageReference = storage.getReference()
 
-        tv_hello.text = "Selamat Datang\n" + intent.getStringExtra("nama")
+        mFirebaseInstance = FirebaseDatabase.getInstance()
+        mFirebaseDatabase = mFirebaseInstance.getReference("User")
+
+        user = intent.getParcelableExtra("data")!!
+        tv_hello.text = "Selamat Datang\n"+user.nama
+
         iv_add.setOnClickListener {
-            if (statusAdd){
+            if (statusAdd) {
                 statusAdd = false
-                btn_save.visibility = View.VISIBLE
+                btn_save.visibility = View.INVISIBLE
                 iv_add.setImageResource(R.drawable.ic_btn_upload)
                 iv_profile.setImageResource(R.drawable.user_pic)
+
             } else {
-                Dexter.withActivity(this)
-                    .withPermission(android.Manifest.permission.CAMERA)
-                    .withListener(this)
-                    .check()
+//                Dexter.withActivity(this)
+//                    .withPermission(android.Manifest.permission.CAMERA)
+//                    .withListener(this)
+//                    .check()
+
+                ImagePicker.with(this)
+                    .cameraOnly()	//User can only capture image using Camera
+                    .start()
             }
         }
 
         btn_home.setOnClickListener {
+
             finishAffinity()
-            startActivity(Intent(this@SignUpPhotoScreenActivity, HomeActivity::class.java))
+
+            val intent = Intent(this@SignUpPhotoscreenActivity,
+                HomeActivity::class.java)
+            startActivity(intent)
         }
 
         btn_save.setOnClickListener {
-            if (filePath != null){
-                var progressDialog = ProgressDialog(this)
+            if (filePath != null) {
+                val progressDialog = ProgressDialog(this)
                 progressDialog.setTitle("Uploading...")
                 progressDialog.show()
 
-                var ref = storageReferensi.child("images/"+UUID.randomUUID().toString())
+                val ref = storageReference.child("images/" + UUID.randomUUID().toString())
                 ref.putFile(filePath)
                     .addOnSuccessListener {
                         progressDialog.dismiss()
-                        Toast.makeText(this, "Uploaded", Toast.LENGTH_LONG).show()
-
+                        Toast.makeText(this@SignUpPhotoscreenActivity, "Uploaded", Toast.LENGTH_SHORT).show()
                         ref.downloadUrl.addOnSuccessListener {
-                            preferences.setValues("url", it.toString())
+                            saveToFirebase(it.toString())
                         }
-
-                        finishAffinity()
-                        startActivity(Intent(this@SignUpPhotoScreenActivity, HomeActivity::class.java))
-
                     }
-                    .addOnFailureListener {
+                    .addOnFailureListener { e ->
                         progressDialog.dismiss()
-                        Toast.makeText(this, "Failed", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@SignUpPhotoscreenActivity, "Failed " + e.message, Toast.LENGTH_SHORT).show()
                     }
-                    .addOnProgressListener {
-                        taskSnapshot -> var progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
-                        progressDialog.setMessage("Upload " + progress.toInt()+" %")
+                    .addOnProgressListener { taskSnapshot ->
+                        val progress = 100.0 * taskSnapshot.bytesTransferred / taskSnapshot.totalByteCount
+                        progressDialog.setMessage("Uploaded " + progress.toInt() + "%")
                     }
+            }
 
-            } else {
+        }
+    }
+
+    private fun saveToFirebase(url: String) {
+
+        mFirebaseDatabase.child(user.username!!).addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(dataSnapshot: DataSnapshot) {
+
+                user.url = url
+                mFirebaseDatabase.child(user.username!!).setValue(user)
+
+                preferences.setValues("nama", user.nama.toString())
+                preferences.setValues("user", user.username.toString())
+                preferences.setValues("saldo", "")
+                preferences.setValues("url", "")
+                preferences.setValues("email", user.email.toString())
+                preferences.setValues("status", "1")
+                preferences.setValues("url", url)
+
+                finishAffinity()
+                val intent = Intent(this@SignUpPhotoscreenActivity,
+                    HomeActivity::class.java)
+                startActivity(intent)
 
             }
-        }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@SignUpPhotoscreenActivity, ""+error.message, Toast.LENGTH_LONG).show()
+            }
+        })
+
 
     }
 
     override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also {
-            takePictureIntent ->
-            takePictureIntent.resolveActivity(packageManager)?.also {
-                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
-            }
-        }
-    }
+        //To change body of created functions use File | Settings | File Templates.
+//        Intent(MediaStore.ACTION_IMAGE_CAPTURE).also { takePictureIntent ->
+//            takePictureIntent.resolveActivity(packageManager)?.also {
+//                startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE)
+//            }
+//        }
 
-    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-        Toast.makeText(this, "Gagal menambahkan foto profile", Toast.LENGTH_LONG).show()
+        ImagePicker.with(this)
+            .cameraOnly()	//User can only capture image using Camera
+            .start()
+
     }
 
     override fun onPermissionRationaleShouldBeShown(
-        permission: PermissionRequest?,
+        permission: com.karumi.dexter.listener.PermissionRequest?,
         token: PermissionToken?
-    ) { }
-
-    override fun onBackPressed() {
-        Toast.makeText(this, "Tergesah? klik tombol upload nanti aja", Toast.LENGTH_LONG).show()
+    ) {
+        //To change body of created functions use File | Settings | File Templates.
     }
 
-    @SuppressLint("MissingSuperCall")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK){
-            var bitmap = data?.extras?.get("data") as Bitmap
-            statusAdd = true
+    override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+        //To change body of created functions use File | Settings | File Templates.
+        Toast.makeText(this, "Anda tidak bisa menambahkan photo profile", Toast.LENGTH_LONG ).show()
+    }
 
-            filePath = data.getData()!!
+    override fun onBackPressed() {
+        Toast.makeText(this, "Tergesah? Klik tombol Upload Nanti aja", Toast.LENGTH_LONG ).show()
+    }
+
+//    @SuppressLint("MissingSuperCall")
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+//            var bitmap = data?.extras?.get("data") as Bitmap
+//            statusAdd = true
+//
+//            filePath = data.getData()!!
+//
+//            Glide.with(this)
+//                .load(bitmap)
+//                .apply(RequestOptions.circleCropTransform())
+//                .into(iv_profile)
+//
+//            btn_save.visibility = View.VISIBLE
+//            iv_add.setImageResource(R.drawable.ic_btn_delete)
+//        }
+//    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            statusAdd = true
+            filePath = data?.data!!
+
             Glide.with(this)
-                .load(bitmap)
+                .load(filePath)
                 .apply(RequestOptions.circleCropTransform())
                 .into(iv_profile)
 
             btn_save.visibility = View.VISIBLE
             iv_add.setImageResource(R.drawable.ic_btn_delete)
+
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 }

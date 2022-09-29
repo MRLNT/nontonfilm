@@ -3,11 +3,47 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable-xxhdpi/ic_event_seat_24px.xml" value="0.196875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable-xxhdpi/ic_star_yellow_24dp.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/ic_account_balance_wallet_24px.xml" value="0.196875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/ic_arrow_back_white_24dp.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/ic_calendar_today.xml" value="0.19791666666666666" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_background_blue.xml" value="0.3536458333333333" />
         <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_eclipse_white.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_line.xml" value="0.196875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_line_pink.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_line_white.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_rectangle_blue_grey.xml" value="0.3536458333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_rectangle_blue_grey_left.xml" value="0.196875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/drawable/shape_rectangle_white.xml" value="0.196875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/font/montserrat.xml" value="0.371875" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_checkout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_checkout_failed.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_checkout_success.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_detail.xml" value="0.182518115942029" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_edit_profile.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_history.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_home.xml" value="0.32563405797101447" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_my_wallet.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_my_wallet_success.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_my_wallet_top_up.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_onboarding_one.xml" value="0.1983695652173913" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_pilih_bangku.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_sign_in.xml" value="0.20018115942028986" />
         <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_sign_up.xml" value="0.1852355072463768" />
         <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_sign_up_photoscreen.xml" value="0.3129528985507246" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_splash_screen.xml" value="0.17481884057971014" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/activity_tiket.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/dialog_qr.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/fragment_dashboard.xml" value="0.32563405797101447" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/fragment_setting.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/fragment_tiket.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_checkout.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_checkout_white.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_coming_soon.xml" value="0.1612008072653885" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_now_playing.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_play.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/Marcel Antonio/AndroidStudioProjects/NontonFilm/app/src/main/res/layout/row_item_transaksi.xml" value="0.3333333333333333" />
       </map>
     </option>
   </component>

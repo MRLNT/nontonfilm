@@ -17,7 +17,6 @@
         android:background="@drawable/shape_rectangle_blue_grey"
         android:text="@string/upload_nanti"
         android:textColor="@color/colorWhite"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,7 +32,6 @@
         android:text="@string/simpan_dan_lanjutkan"
         android:textColor="@color/colorWhite"
         android:visibility="invisible"
-        app:backgroundTint="@null"
         app:layout_constraintBottom_toTopOf="@+id/btn_home"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -76,7 +74,7 @@
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_arrow_back_24" />
+        app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
 
     <ImageView
         android:id="@+id/iv_profile"
@@ -92,7 +90,6 @@
         android:id="@+id/iv_add"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@drawable/shape_eclipse_white"
         app:layout_constraintBottom_toBottomOf="@+id/iv_profile"
         app:layout_constraintEnd_toEndOf="@+id/iv_profile"
         app:srcCompat="@drawable/ic_btn_upload" />

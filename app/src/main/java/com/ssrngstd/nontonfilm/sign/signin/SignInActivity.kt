@@ -1,93 +1,104 @@
 package com.ssrngstd.nontonfilm.sign.signin
 
 import android.content.Intent
-import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.*
-import com.ssrngstd.nontonfilm.HomeActivity
+import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
+import com.ssrngstd.nontonfilm.home.HomeActivity
 import com.ssrngstd.nontonfilm.R
 import com.ssrngstd.nontonfilm.sign.signup.SignUpActivity
 import com.ssrngstd.nontonfilm.utils.Preferences
-import kotlin.jvm.java as java
-
+import com.google.firebase.database.*
+import kotlinx.android.synthetic.main.activity_sign_in.*
 
 class SignInActivity : AppCompatActivity() {
 
-    lateinit var iUsername:String
-    lateinit var iPassword:String
+    lateinit var iUsername :String
+    lateinit var iPassword :String
 
-    //    Inisialisasi Firebase
     lateinit var mDatabase: DatabaseReference
-    lateinit var preference : Preferences
+    lateinit var preferences: Preferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
 
-        val et_username = findViewById<EditText>(R.id.et_username)
-        val et_password = findViewById<EditText>(R.id.et_password)
-        val btn_home = findViewById(R.id.btn_home) as Button
-        val btn_daftar = findViewById(R.id.btn_daftar) as Button
-
-//        Mengambil data dari firebase
         mDatabase = FirebaseDatabase.getInstance().getReference("User")
-        preference = Preferences(this)
+        preferences = Preferences(this)
 
-        preference.setValues("onboarding","1")
-        if(preference.getValues("status").equals("1")){
+        preferences.setValues("onboarding", "1")
+        if (preferences.getValues("status").equals("1")) {
             finishAffinity()
-            startActivity(Intent(this@SignInActivity, HomeActivity::class.java))
+
+            val intent = Intent(this@SignInActivity,
+                HomeActivity::class.java)
+            startActivity(intent)
         }
 
-        btn_home.setOnClickListener(){
-
+        btn_home.setOnClickListener {
             iUsername = et_username.text.toString()
             iPassword = et_password.text.toString()
 
-            if (iUsername.equals("")){
-                et_username.error = "Silahkan tulis username anda"
+            if (iUsername.equals("")) {
+                et_username.error = "Silahkan tulis Username Anda"
                 et_username.requestFocus()
-            }else if (iPassword.equals("")){
-                et_password.error = "Silahkan tulis password anda"
+            } else if (iPassword.equals("")) {
+                et_password.error = "Silahkan tulis Password Anda"
                 et_password.requestFocus()
-            }else{
-                pushLogin(iUsername, iPassword)
+            } else {
+
+                var statusUsername = iUsername.indexOf(".")
+                if (statusUsername >=0) {
+                    et_username.error = "Silahkan tulis Username Anda tanpa ."
+                    et_username.requestFocus()
+                } else {
+                    pushLogin(iUsername, iPassword)
+                }
             }
         }
 
-        btn_daftar.setOnClickListener(){
-            startActivity(Intent(this@SignInActivity, SignUpActivity::class.java))
+        btn_daftar.setOnClickListener {
+            val intent = Intent(this@SignInActivity,
+                SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 
     private fun pushLogin(iUsername: String, iPassword: String) {
         mDatabase.child(iUsername).addValueEventListener(object : ValueEventListener {
-            override fun onCancelled(databaseError: DatabaseError) {
-                Toast.makeText(this@SignInActivity, databaseError.message, Toast.LENGTH_LONG).show()
-            }
-
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                val user = dataSnapshot.getValue(User::class.java)
-                if (user == null){
-                    Toast.makeText(this@SignInActivity, "User tidak ditemukan", Toast.LENGTH_LONG).show()
-                } else{
-                    if (user.password.equals(iPassword)){
-                        preference.setValues("nama", user.nama.toString())
-                        preference.setValues("username", user.username.toString())
-                        preference.setValues("url", user.url.toString())
-                        preference.setValues("email", user.email.toString())
-                        preference.setValues("saldo", user.saldo.toString())
-                        preference.setValues("status", "1")
 
-                        startActivity(Intent(this@SignInActivity, HomeActivity::class.java));
-                    } else{
-                        Toast.makeText(this@SignInActivity, "Password anda salah", Toast.LENGTH_LONG).show()
+                val user = dataSnapshot.getValue(User::class.java)
+                if (user == null) {
+                    Toast.makeText(this@SignInActivity, "User tidak ditemukan", Toast.LENGTH_LONG).show()
+
+                } else {
+                    if (user.password.equals(iPassword)){
+                        Toast.makeText(this@SignInActivity, "Selamat Datang", Toast.LENGTH_LONG).show()
+
+                        preferences.setValues("nama", user.nama.toString())
+                        preferences.setValues("user", user.username.toString())
+                        preferences.setValues("url", user.url.toString())
+                        preferences.setValues("email", user.email.toString())
+                        preferences.setValues("saldo", user.saldo.toString())
+                        preferences.setValues("status", "1")
+
+                        finishAffinity()
+
+                        val intent = Intent(this@SignInActivity,
+                            HomeActivity::class.java)
+                        startActivity(intent)
+
+                    } else {
+                        Toast.makeText(this@SignInActivity, "Password Anda Salah", Toast.LENGTH_LONG).show()
                     }
 
                 }
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Toast.makeText(this@SignInActivity, ""+error.message, Toast.LENGTH_LONG).show()
             }
         })
     }

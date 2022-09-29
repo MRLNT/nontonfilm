@@ -14,4 +14,10 @@
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorWhiteGrey">#F7F7F7</color>
     <color name="goodgreen">#1ABC9C</color>
+
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGreen">#1ABC9C</color>
 </resources>

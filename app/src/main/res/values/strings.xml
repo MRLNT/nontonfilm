@@ -44,4 +44,15 @@
     <string name="desc_sign_one">Lebih mudah untuk mengetahui film yang sedang tampil</string>
     <string name="masuk">MASUK</string>
     <string name="daftar">DAFTAR</string>
+
+
+    <string name="lihat_tike">Lihat Tiket</string>
+    <string name="home">Home</string>
+    <string name="happy_watch">Happy Watching!</string>
+    <string name="daftar_akun">Daftar Akun Baru</string>
+    <string name="masuk_akun">Masuk Akun</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
 </resources>
